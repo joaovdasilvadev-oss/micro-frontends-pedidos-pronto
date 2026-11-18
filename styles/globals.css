@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
+
+:root{--ink:#20251f;--muted:#777e73;--green:#345b43;--green2:#e9f0e8;--cream:#f7f7f1;--line:#e8e9e1;--orange:#d77b43}
+*{box-sizing:border-box}
+html,body{padding:0;margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif}
+button{font:inherit}
+.topo{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(calc((100vw - 1160px)/2),28px)}
+.marca{font-size:18px;font-weight:700;letter-spacing:-.5px}.marcaIcone{color:var(--orange);margin-right:9px}
+.topoTag{font-size:10px;letter-spacing:1.5px;color:#879084;font-weight:700}
+.pagina{max-width:1160px;margin:0 auto;padding:64px 28px 30px}
+.hero{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
+.sobretitulo{font-size:10px;letter-spacing:2px;font-weight:700;color:var(--orange);margin:0 0 13px}
+h1{font-size:clamp(42px,6vw,66px);line-height:1.04;letter-spacing:-2.8px;margin:0;font-weight:600}
+h1 em{font-family:'Playfair Display',serif;color:var(--green);font-weight:600}
+.intro{color:var(--muted);font-size:15px;margin:18px 0 0}
+.heroSelo{width:112px;height:112px;border:1px solid #d9dfd4;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--green);transform:rotate(9deg);margin-right:55px}
+.heroSelo span{font-size:25px}.heroSelo small{text-align:center;font-size:8px;line-height:1.5;letter-spacing:1.5px;font-weight:700;margin-top:4px}
+.conteudo{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(290px,.85fr);gap:22px;align-items:start}
+.painel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:27px}
+.painelTitulo{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px}
+.painelTitulo .sobretitulo{margin-bottom:7px}
+h2{font-size:23px;letter-spacing:-.7px;margin:0}
+.contador{font-size:11px;color:var(--muted);background:#f4f5f0;border-radius:20px;padding:7px 11px}
+.listaPratos{display:grid;gap:13px}
+.prato{display:grid;grid-template-columns:116px 1fr;border:1px solid var(--line);border-radius:9px;overflow:hidden;min-height:142px}
+.pratoImagem{background:#f1f2e9;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.pratoImagem span{font-size:43px}.pratoImagem small{position:absolute;bottom:9px;font-size:8px;letter-spacing:1px;color:var(--green);font-weight:700}
+.pratoInfo{padding:17px 17px 14px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.pratoInfo h3{font-size:15px;margin:0 0 6px}.pratoInfo p{font-size:11px;line-height:1.55;color:var(--muted);margin:0;max-width:390px}
+.pratoRodape{display:flex;align-items:center;justify-content:space-between;margin-top:13px}
+.pratoRodape strong{font-size:14px}
+.botaoAdicionar{border:0;background:var(--green2);color:var(--green);padding:8px 11px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;transition:.2s}
+.botaoAdicionar:hover{background:var(--green);color:#fff}.botaoAdicionar span{font-size:14px;margin-left:5px}
+.pedidoPainel{position:sticky;top:20px;min-height:400px}
+.sacola{font-size:20px;color:var(--green)}
+.pedidoVazio{padding:37px 10px 42px;text-align:center;border-bottom:1px dashed var(--line)}
+.vazioIcone{height:48px;width:48px;border-radius:50%;display:grid;place-items:center;background:#f1f3ed;color:var(--green);font-size:25px;margin:0 auto 15px}
+.pedidoVazio h3{font-size:13px;margin:0 0 7px}.pedidoVazio p{font-size:11px;color:var(--muted);margin:0}
+.itensPedido{border-bottom:1px dashed var(--line);padding-bottom:13px;max-height:250px;overflow:auto}
+.itemPedido{display:flex;align-items:center;gap:10px;padding:10px 0}
+.itemEmoji{width:34px;height:34px;display:grid;place-items:center;background:#f3f4ed;border-radius:7px;font-size:18px}
+.itemTexto{display:flex;flex:1;flex-direction:column;gap:4px}.itemTexto strong{font-size:11px}.itemTexto small{font-size:10px;color:var(--muted)}
+.remover{border:0;background:transparent;color:#a4a99f;font-size:21px;cursor:pointer}.remover:hover{color:#b64d3c}
+.resumo{padding-top:17px}.linhaResumo,.linhaTotal{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);margin-bottom:13px}
+.linhaResumo strong{color:var(--ink)}.linhaTotal{border-top:1px solid var(--line);padding-top:16px;margin-top:15px;color:var(--ink);font-size:13px}
+.linhaTotal strong{font-size:20px;color:var(--green)}
+.finalizar{width:100%;background:var(--green);color:#fff;border:0;border-radius:7px;padding:13px;font-size:11px;font-weight:700;cursor:pointer;display:flex;justify-content:center;gap:10px}
+.finalizar:hover:not(:disabled){background:#274735}.finalizar:disabled{opacity:.4;cursor:not-allowed}
+.nota{text-align:center;color:#9a9f96;font-size:9px;margin:11px 0 0}
+footer{text-align:center;color:#9a9f96;font-size:10px;margin-top:34px}
+.carregando{color:var(--muted);font-size:13px;padding:20px}
+@media(max-width:760px){.pagina{padding:42px 17px 25px}.topo{padding:0 18px}.heroSelo{display:none}.conteudo{grid-template-columns:1fr}.pedidoPainel{position:static;min-height:0}.prato{grid-template-columns:90px 1fr}.painel{padding:20px}h1{letter-spacing:-1.8px}.topoTag{font-size:8px}}
+@media(max-width:390px){.prato{grid-template-columns:1fr}.pratoImagem{min-height:85px}.pratoInfo{min-height:135px}.pratoRodape{gap:8px}}
