@@ -2,7 +2,7 @@
 
 Projeto acadêmico desenvolvido com Next.js 14, React, JavaScript e Webpack Module Federation.
 
-O projeto demonstra a integração de três aplicações independentes: um container principal, um micro frontend de cardápio e um micro frontend de pedidos.
+O objetivo é demonstrar a arquitetura de Micro Frontends por meio de três aplicações independentes: uma aplicação principal (Container), um microfrontend de Cardápio e um microfrontend de Pedidos.
 
 ## Tecnologias utilizadas
 
@@ -11,7 +11,9 @@ O projeto demonstra a integração de três aplicações independentes: um conta
 - JavaScript
 - Webpack 5
 - Module Federation (`@module-federation/nextjs-mf`)
-- Eventos globais do navegador para comunicação entre componentes
+- React.lazy e Suspense
+- Eventos personalizados do navegador (`window.dispatchEvent`)
+- CSS3 e Media Queries
 
 ## Requisitos
 
@@ -19,90 +21,15 @@ O projeto demonstra a integração de três aplicações independentes: um conta
 - npm
 - Visual Studio Code
 
-## Como executar no Windows
-
-É necessário iniciar as três aplicações em terminais separados.
-
-### 1. Instalar as dependências
-
-Abra a pasta principal do projeto no VS Code.
-
-No terminal integrado, execute:
-
-```bash
-npm install
-```
-
-Depois, instale as dependências dos dois micro frontends:
-
-```bash
-cd micro-cardapio
-npm install
-```
-
-```bash
-cd ../micro-pedido
-npm install
-```
-
-### 2. Iniciar o micro frontend Cardápio
-
-Abra um terminal integrado na pasta `micro-cardapio` e execute:
-
-```bash
-npm run dev
-```
-
-Aplicação disponível em:
-
-http://localhost:3001
-
-### 3. Iniciar o micro frontend Pedido
-
-Abra outro terminal integrado na pasta `micro-pedido` e execute:
-
-```bash
-npm run dev
-```
-
-Aplicação disponível em:
-
-http://localhost:3002
-
-### 4. Iniciar o Container principal
-
-Abra um terceiro terminal integrado na pasta raiz do projeto e execute:
-
-```bash
-npm run dev
-```
-
-Aplicação disponível em:
-
-http://localhost:3000
-
-**Importante:** mantenha os três servidores em execução simultaneamente para que a integração funcione.
-
-## Funcionalidades implementadas
-
-- Cardápio com três opções de pratos.
-- Adição de pratos ao pedido.
-- Exibição dos itens selecionados.
-- Remoção de itens do pedido.
-- Cálculo automático do valor total.
-- Carregamento dos micro frontends pelo container.
-- Comunicação entre aplicações por eventos globais do navegador.
-- Carregamento sob demanda dos módulos com React.lazy e Suspense.
-- Interface responsiva.
-
 ## Arquitetura do projeto
 
-O projeto está organizado em três aplicações Next.js independentes:
+O projeto está organizado em três aplicações Next.js:
 
 ```text
 micro-frontends-pedidos-pronto/
 │
 ├── pages/
+│   ├── _app.js
 │   └── index.js
 │
 ├── styles/
@@ -113,52 +40,162 @@ micro-frontends-pedidos-pronto/
 │   │   └── Cardapio.js
 │   ├── pages/
 │   ├── next.config.js
-│   └── package.json
+│   ├── package.json
+│   └── package-lock.json
 │
 ├── micro-pedido/
 │   ├── components/
 │   │   └── Pedidos.js
 │   ├── pages/
 │   ├── next.config.js
-│   └── package.json
+│   ├── package.json
+│   └── package-lock.json
 │
 ├── next.config.js
 ├── package.json
-└── readme.md
+├── package-lock.json
+└── README.md
 ```
+
+## Responsabilidade de cada aplicação
+
+### Container (aplicação principal)
+
+Localizado na raiz do projeto.
+
+Responsável por integrar os dois microfrontends, consumir seus componentes remotos e gerenciar o estado dos pedidos.
+
+### Micro Cardápio
+
+Localizado na pasta `micro-cardapio`.
+
+Responsável por apresentar os pratos disponíveis, incluindo nome, descrição, preço e botão para adicionar ao pedido.
+
+### Micro Pedido
+
+Localizado na pasta `micro-pedido`.
+
+Responsável por exibir os pratos selecionados, permitir a remoção de itens e apresentar o valor total do pedido.
+
+## Como executar o projeto
+
+É necessário instalar as dependências e iniciar as três aplicações em terminais separados.
+
+### 1. Instalar as dependências
+
+Na pasta principal do projeto, abra o terminal integrado do VS Code e execute:
+
+```bash
+npm install
+```
+
+Depois, instale as dependências do Micro Cardápio:
+
+```bash
+cd micro-cardapio
+npm install
+```
+
+Em seguida, instale as dependências do Micro Pedido:
+
+```bash
+cd ../micro-pedido
+npm install
+```
+
+### 2. Iniciar o Micro Cardápio
+
+Abra um terminal na pasta `micro-cardapio` e execute:
+
+```bash
+npm run dev
+```
+
+Endereço: http://localhost:3001
+
+### 3. Iniciar o Micro Pedido
+
+Abra outro terminal na pasta `micro-pedido` e execute:
+
+```bash
+npm run dev
+```
+
+Endereço: http://localhost:3002
+
+### 4. Iniciar o Container
+
+Abra um terceiro terminal na pasta principal do projeto e execute:
+
+```bash
+npm run dev
+```
+
+Endereço: http://localhost:3000
+
+**Importante:** mantenha os três servidores em execução simultaneamente para que a integração entre as aplicações funcione corretamente.
 
 ## Module Federation
 
-A integração utiliza o plugin `@module-federation/nextjs-mf`.
+A integração utiliza Webpack Module Federation por meio do plugin `@module-federation/nextjs-mf`.
 
-Os micro frontends expõem seus componentes para consumo pelo container:
+Os microfrontends disponibilizam seus componentes para consumo pelo Container:
 
-- `micro_cardapio/Cardapio`: componente de cardápio, disponibilizado na porta 3001.
-- `micro_pedido/Pedido`: componente de pedidos, disponibilizado na porta 3002.
+- `micro_cardapio/Cardapio`: componente de cardápio disponibilizado na porta 3001.
+- `micro_pedido/Pedido`: componente de pedidos disponibilizado na porta 3002.
 
-O container principal, executado na porta 3000, configura os remotes e carrega os componentes das aplicações independentes.
+O Container configura as aplicações remotas e carrega seus componentes utilizando `React.lazy` e `Suspense`, permitindo a integração de aplicações independentes.
 
-## Comunicação entre os componentes
+## Comunicação entre os microfrontends
 
-A comunicação entre Cardápio e Pedido acontece por eventos personalizados do navegador:
+A comunicação acontece por meio de eventos personalizados do navegador.
 
-- `adicionar-item`: enviado quando um prato é selecionado.
-- `remover-item`: enviado quando um item é removido.
+São utilizados os seguintes eventos:
 
-O container recebe esses eventos, atualiza o estado do pedido e repassa os itens ao componente de pedidos.
+- `adicionar-item`: disparado quando um prato é adicionado ao pedido.
+- `remover-item`: disparado quando um prato é removido do pedido.
+
+O Container recebe esses eventos, atualiza o estado dos pedidos e disponibiliza os dados atualizados para o componente de pedidos.
+
+Dessa forma, os microfrontends conseguem se comunicar sem depender diretamente da implementação interna um do outro.
+
+## Funcionalidades implementadas
+
+- Exibição de três pratos no cardápio.
+- Apresentação do nome, descrição e preço de cada prato.
+- Adição de pratos ao pedido.
+- Exibição dos itens selecionados.
+- Remoção individual de pratos do pedido.
+- Cálculo automático do valor total.
+- Integração dos componentes remotos pelo Module Federation.
+- Comunicação entre aplicações por eventos globais.
+- Carregamento sob demanda com React.lazy e Suspense.
+- Interface responsiva para diferentes tamanhos de tela.
 
 ## Compatibilidade
 
-Os projetos utilizam `enhanced-resolve` na versão `5.18.3`, fixada por meio de `overrides` nos arquivos `package.json`, para evitar o erro de resolução de dependências identificado durante os testes.
+O projeto utiliza:
+
+- Next.js 14.2.35.
+- React 18.3.1.
+- Webpack 5.
+- `@module-federation/nextjs-mf` na versão 8.8.31.
+- `@module-federation/enhanced` na versão 0.15.0.
+
+A dependência `enhanced-resolve` está fixada na versão 5.18.3 por meio da configuração `overrides` nos arquivos `package.json`, mantendo a mesma versão nas três aplicações.
 
 ## Testes realizados
 
-As três aplicações foram iniciadas simultaneamente e a integração foi verificada:
+Foram verificadas as seguintes funcionalidades:
 
-- Container iniciado na porta 3000.
-- Micro Cardápio iniciado na porta 3001.
-- Micro Pedido iniciado na porta 3002.
-- Carregamento dos componentes remotos.
+- Inicialização simultânea das três aplicações.
+- Carregamento dos componentes remotos no Container.
+- Exibição dos pratos com nome, descrição e preço.
 - Adição de pratos ao pedido.
-- Remoção de pratos.
-- Atualização do valor total.
+- Remoção de pratos selecionados.
+- Atualização automática do valor total.
+- Comunicação entre os microfrontends.
+
+---
+
+**Projeto acadêmico — Micro Frontends de Pedidos.**
